@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Intelligence Terminal</title>
+    <link rel="stylesheet" href="terminal-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="terminal-container" data-terminal="analytics">
+        <!-- Terminal Header -->
+        <header class="terminal-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="goBackToMain()">
+                    <i class="fas fa-arrow-left"></i> Control Center
+                </button>
+                <div class="terminal-title">
+                    <i class="fas fa-chart-bar"></i>
+                    <h1>Business Intelligence Terminal</h1>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span id="current-user">Loading...</span>
+                    <span id="current-role"></span>
+                </div>
+                <button class="logout-btn" onclick="logoutTerminal()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard-content">
+            <!-- KPI Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-users"></i>
+                        <h3>Total Users</h3>
+                    </div>
+                    <div class="stat-value">245,821</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 15.2% growth
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-eye"></i>
+                        <h3>Page Views</h3>
+                    </div>
+                    <div class="stat-value">4.2M</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 22.5% vs last month
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-bounce-rate"></i>
+                        <h3>Bounce Rate</h3>
+                    </div>
+                    <div class="stat-value">32.4%</div>
+                    <div class="stat-change negative">
+                        <i class="fas fa-arrow-down"></i> 1.8% improvement
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-clock"></i>
+                        <h3>Avg Session</h3>
+                    </div>
+                    <div class="stat-value">4m 38s</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 45s increase
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Charts -->
+            <div class="charts-grid">
+                <!-- Traffic Sources Donut Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-pie"></i> Traffic Sources</h3>
+                        <select id="trafficFilter" onchange="updateTrafficChart()">
+                            <option value="month">This Month</option>
+                            <option value="week">This Week</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="trafficDonutChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- User Growth Area Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-area"></i> User Growth</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="growthAreaChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Device Usage Stacked Bar -->
+                <div class="chart-card full-width">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-mobile-alt"></i> Device Usage by Platform</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="deviceStackedChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Geographic Heat Map -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-globe-americas"></i> Geographic Distribution</h3>
+                    </div>
+                    <div class="chart-container">
+                        <div class="geo-map">
+                            <div class="map-container">
+                                <!-- Simplified geographic visualization -->
+                                <div class="region" style="top: 20%; left: 20%;" data-region="NA">
+                                    <div class="region-label">North America</div>
+                                    <div class="region-value">42%</div>
+                                </div>
+                                <div class="region" style="top: 40%; left: 50%;" data-region="EU">
+                                    <div class="region-label">Europe</div>
+                                    <div class="region-value">28%</div>
+                                </div>
+                                <div class="region" style="top: 60%; left: 70%;" data-region="AP">
+                                    <div class="region-label">Asia Pacific</div>
+                                    <div class="region-value">18%</div>
+                                </div>
+                                <div class="region" style="top: 70%; left: 30%;" data-region="SA">
+                                    <div class="region-label">South America</div>
+                                    <div class="region-value">8%</div>
+                                </div>
+                                <div class="region" style="top: 50%; left: 40%;" data-region="AF">
+                                    <div class="region-label">Africa</div>
+                                    <div class="region-value">4%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Funnel Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-filter"></i> Conversion Funnel</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="funnelChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Analytics -->
+            <div class="realtime-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-bolt"></i> Real-time Analytics</h3>
+                    <div class="timeframe-selector">
+                        <button class="time-btn active" onclick="setRealtimeRange('5m')">5m</button>
+                        <button class="time-btn" onclick="setRealtimeRange('30m')">30m</button>
+                        <button class="time-btn" onclick="setRealtimeRange('1h')">1h</button>
+                    </div>
+                </div>
+                <div class="realtime-grid">
+                    <div class="realtime-card">
+                        <h4>Active Users Now</h4>
+                        <div class="realtime-value" id="active-users">1,245</div>
+                        <div class="realtime-chart mini">
+                            <canvas id="activeUsersChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="realtime-card">
+                        <h4>Current Sessions</h4>
+                        <div class="realtime-value" id="current-sessions">856</div>
+                        <div class="realtime-chart mini">
+                            <canvas id="sessionsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="realtime-card">
+                        <h4>Pageviews/min</h4>
+                        <div class="realtime-value" id="pageviews-rate">245</div>
+                        <div class="realtime-chart mini">
+                            <canvas id="pageviewsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Export -->
+            <div class="export-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-download"></i> Export Analytics</h3>
+                </div>
+                <div class="export-options">
+                    <button class="export-btn" onclick="exportData('pdf')">
+                        <i class="fas fa-file-pdf"></i> PDF Report
+                    </button>
+                    <button class="export-btn" onclick="exportData('csv')">
+                        <i class="fas fa-file-csv"></i> CSV Data
+                    </button>
+                    <button class="export-btn" onclick="exportData('excel')">
+                        <i class="fas fa-file-excel"></i> Excel
+                    </button>
+                    <button class="export-btn" onclick="exportData('json')">
+                        <i class="fas fa-file-code"></i> JSON
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Terminal Footer -->
+        <footer class="terminal-footer">
+            <div class="footer-info">
+                <span><i class="fas fa-clock"></i> Analytics Updated: <span id="last-updated">Just now</span></span>
+                <span><i class="fas fa-database"></i> Processing: <span id="processing-count">245K events</span></span>
+                <span><i class="fas fa-chart-line"></i> Real-time: <span id="realtime-status">Active</span></span>
+            </div>
+            <div class="terminal-status">
+                <span class="status-indicator active">
+                    <i class="fas fa-circle"></i> Analytics Live
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="terminal-analytics.js"></script>
+</body>
+</html>

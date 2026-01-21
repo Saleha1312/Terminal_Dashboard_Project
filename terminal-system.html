@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Monitoring Terminal</title>
+    <link rel="stylesheet" href="terminal-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="terminal-container" data-terminal="system">
+        <!-- Terminal Header -->
+        <header class="terminal-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="goBackToMain()">
+                    <i class="fas fa-arrow-left"></i> Control Center
+                </button>
+                <div class="terminal-title">
+                    <i class="fas fa-server"></i>
+                    <h1>System Monitoring Terminal</h1>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span id="current-user">Loading...</span>
+                    <span id="current-role"></span>
+                </div>
+                <button class="logout-btn" onclick="logoutTerminal()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard-content">
+            <!-- System Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-microchip"></i>
+                        <h3>CPU Usage</h3>
+                    </div>
+                    <div class="stat-value">68%</div>
+                    <div class="stat-gauge">
+                        <div class="gauge-bar">
+                            <div class="gauge-fill" style="width: 68%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-change">Load: 4.2</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-memory"></i>
+                        <h3>Memory Usage</h3>
+                    </div>
+                    <div class="stat-value">5.2/8 GB</div>
+                    <div class="stat-gauge">
+                        <div class="gauge-bar">
+                            <div class="gauge-fill" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-change">Swap: 12%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-hdd"></i>
+                        <h3>Disk Usage</h3>
+                    </div>
+                    <div class="stat-value">78%</div>
+                    <div class="stat-gauge">
+                        <div class="gauge-bar">
+                            <div class="gauge-fill" style="width: 78%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-change">256 GB Free</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-network-wired"></i>
+                        <h3>Network</h3>
+                    </div>
+                    <div class="stat-value">245 Mbps</div>
+                    <div class="stat-change">
+                        <i class="fas fa-arrow-up"></i> 45 Mbps
+                        <i class="fas fa-arrow-down"></i> 32 Mbps
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <!-- CPU Usage Over Time -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-line"></i> CPU Usage (Last 24 Hours)</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="cpuLineChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Memory Usage Pie Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-pie"></i> Memory Distribution</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="memoryPieChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Disk Usage Bar Chart -->
+                <div class="chart-card full-width">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar"></i> Disk Space by Volume</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="diskBarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Network Traffic -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-network-wired"></i> Network Traffic</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="networkChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Server Status Gauge -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-gauge-high"></i> Server Health</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="healthGauge"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Services Table -->
+            <div class="data-table-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-cogs"></i> Running Services</h3>
+                    <div class="service-actions">
+                        <button class="action-btn" onclick="restartAllServices()">
+                            <i class="fas fa-redo"></i> Restart All
+                        </button>
+                        <button class="refresh-btn" onclick="refreshSystemData()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="servicesTable">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Status</th>
+                                <th>CPU</th>
+                                <th>Memory</th>
+                                <th>Uptime</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="servicesTableBody">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Server Nodes Grid -->
+            <div class="nodes-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-server"></i> Server Cluster Nodes</h3>
+                </div>
+                <div class="nodes-grid" id="nodesGrid">
+                    <!-- Server nodes will be added here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Terminal Footer -->
+        <footer class="terminal-footer">
+            <div class="footer-info">
+                <span><i class="fas fa-clock"></i> Last Updated: <span id="last-updated">Just now</span></span>
+                <span><i class="fas fa-shield-alt"></i> Firewall: <span id="firewall-status">Active</span></span>
+                <span><i class="fas fa-plug"></i> Uptime: <span id="system-uptime">15d 22h 34m</span></span>
+            </div>
+            <div class="terminal-status">
+                <span class="status-indicator active">
+                    <i class="fas fa-circle"></i> All Systems Operational
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="terminal-system.js"></script>
+</body>
+</html>

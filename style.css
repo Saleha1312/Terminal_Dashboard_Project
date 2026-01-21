@@ -1,0 +1,403 @@
+:root {
+    --primary-blue: #4361ee;
+    --secondary-blue: #3a0ca3;
+    --success-green: #4cc9f0;
+    --warning-orange: #f8961e;
+    --danger-red: #f94144;
+    --light-gray: #f8f9fa;
+    --dark-gray: #343a40;
+    --terminal-1: #7209b7;
+    --terminal-2: #f3722c;
+    --terminal-3: #43aa8b;
+    --terminal-4: #577590;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: white;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo i {
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    background: rgba(67, 97, 238, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    background: linear-gradient(45deg, var(--primary-blue), var(--success-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.user-info {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* Welcome Section */
+.welcome-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.welcome-section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #fff, var(--success-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.welcome-section p {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Terminals Grid */
+.terminals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.terminal-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.terminal-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.terminal-card#terminal-sales {
+    border-top: 4px solid var(--terminal-1);
+}
+
+.terminal-card#terminal-system {
+    border-top: 4px solid var(--terminal-2);
+}
+
+.terminal-card#terminal-analytics {
+    border-top: 4px solid var(--terminal-3);
+}
+
+.terminal-card#terminal-finance {
+    border-top: 4px solid var(--terminal-4);
+}
+
+.terminal-icon {
+    padding: 25px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.terminal-icon i {
+    font-size: 3.5rem;
+    color: var(--primary-blue);
+}
+
+.terminal-card#terminal-sales .terminal-icon i {
+    color: var(--terminal-1);
+}
+
+.terminal-card#terminal-system .terminal-icon i {
+    color: var(--terminal-2);
+}
+
+.terminal-card#terminal-analytics .terminal-icon i {
+    color: var(--terminal-3);
+}
+
+.terminal-card#terminal-finance .terminal-icon i {
+    color: var(--terminal-4);
+}
+
+.terminal-info {
+    padding: 0 25px;
+}
+
+.terminal-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.terminal-info p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.terminal-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.terminal-features span {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Login Form */
+.terminal-login {
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.login-form h4 {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.login-error {
+    color: var(--danger-red);
+    font-size: 0.9rem;
+    margin: 10px 0;
+    padding: 10px;
+    background: rgba(249, 65, 68, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid var(--danger-red);
+    display: none;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(45deg, var(--primary-blue), var(--secondary-blue));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+}
+
+.terminal-card#terminal-sales .login-btn {
+    background: linear-gradient(45deg, var(--terminal-1), #9d4edd);
+}
+
+.terminal-card#terminal-system .login-btn {
+    background: linear-gradient(45deg, var(--terminal-2), #f9c74f);
+}
+
+.terminal-card#terminal-analytics .login-btn {
+    background: linear-gradient(45deg, var(--terminal-3), #90be6d);
+}
+
+.terminal-card#terminal-finance .login-btn {
+    background: linear-gradient(45deg, var(--terminal-4), #4d908e);
+}
+
+/* Sessions Panel */
+.sessions-panel {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sessions-panel h3 {
+    margin-bottom: 20px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#active-sessions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.active-session {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.session-info h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.session-info p {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.close-session {
+    background: rgba(249, 65, 68, 0.1);
+    color: var(--danger-red);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.close-session:hover {
+    background: rgba(249, 65, 68, 0.2);
+}
+
+.empty-sessions {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+.empty-sessions i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+/* Footer */
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    color: #94a3b8;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 30px;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.footer-info span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .terminals-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Analytics Terminal</title>
+    <link rel="stylesheet" href="terminal-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="terminal-container" data-terminal="sales">
+        <!-- Terminal Header -->
+        <header class="terminal-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="goBackToMain()">
+                    <i class="fas fa-arrow-left"></i> Control Center
+                </button>
+                <div class="terminal-title">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>Sales Analytics Terminal</h1>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <span id="current-user">Loading...</span>
+                    <span id="current-role"></span>
+                </div>
+                <button class="logout-btn" onclick="logoutTerminal()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard-content">
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-dollar-sign"></i>
+                        <h3>Total Revenue</h3>
+                    </div>
+                    <div class="stat-value">$1,245,680</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 12.5% vs last month
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Total Orders</h3>
+                    </div>
+                    <div class="stat-value">8,452</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 8.2% vs last month
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-users"></i>
+                        <h3>Active Customers</h3>
+                    </div>
+                    <div class="stat-value">24,589</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i> 5.7% vs last month
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <i class="fas fa-percentage"></i>
+                        <h3>Conversion Rate</h3>
+                    </div>
+                    <div class="stat-value">4.7%</div>
+                    <div class="stat-change negative">
+                        <i class="fas fa-arrow-down"></i> 0.3% vs last month
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <!-- Pie Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-pie"></i> Revenue by Category</h3>
+                        <select id="pieChartFilter" onchange="updatePieChart()">
+                            <option value="month">This Month</option>
+                            <option value="quarter">This Quarter</option>
+                            <option value="year">This Year</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="revenuePieChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Bar Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar"></i> Monthly Sales Performance</h3>
+                        <select id="barChartFilter" onchange="updateBarChart()">
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="salesBarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Line Chart -->
+                <div class="chart-card full-width">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-line"></i> Revenue Trend - Last 12 Months</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="revenueLineChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Donut Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-pie"></i> Market Share</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="marketDonutChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Horizontal Bar Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fas fa-chart-bar"></i> Top Products by Sales</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="productsBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="data-table-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-table"></i> Recent Sales Transactions</h3>
+                    <button class="refresh-btn" onclick="refreshData()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table id="salesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Customer</th>
+                                <th>Product</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesTableBody">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- Terminal Footer -->
+        <footer class="terminal-footer">
+            <div class="footer-info">
+                <span><i class="fas fa-clock"></i> Last Updated: <span id="last-updated">Just now</span></span>
+                <span><i class="fas fa-database"></i> Data Source: Live Sales Database</span>
+                <span><i class="fas fa-shield-alt"></i> Secure Connection Established</span>
+            </div>
+            <div class="terminal-status">
+                <span class="status-indicator active">
+                    <i class="fas fa-circle"></i> Online
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="terminal-sales.js"></script>
+</body>
+</html>

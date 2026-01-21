@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Terminal Dashboard System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="logo">
+                <i class="fas fa-server"></i>
+                <h1>Terminal Control Center</h1>
+            </div>
+            <div class="user-info">
+                <span id="session-time">Session: Active</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard">
+            <div class="welcome-section">
+                <h2>Welcome to Terminal Control System</h2>
+                <p>Select a terminal to access specialized dashboards with visual analytics</p>
+            </div>
+
+            <!-- Terminal Cards -->
+            <div class="terminals-grid">
+                <!-- Terminal 1 - Sales Analytics -->
+                <div class="terminal-card" id="terminal-sales">
+                    <div class="terminal-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="terminal-info">
+                        <h3>Sales Analytics Terminal</h3>
+                        <p>Revenue tracking, sales performance, and market analytics</p>
+                        <div class="terminal-features">
+                            <span><i class="fas fa-chart-pie"></i> Pie Charts</span>
+                            <span><i class="fas fa-chart-bar"></i> Bar Graphs</span>
+                            <span><i class="fas fa-trend-up"></i> Trends</span>
+                        </div>
+                    </div>
+                    <div class="terminal-login">
+                        <div class="login-form">
+                            <h4>Terminal Login</h4>
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="sales-user" placeholder="Username" value="sales">
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="sales-pass" placeholder="Password" value="sales123">
+                            </div>
+                            <div class="login-error" id="error-sales"></div>
+                            <button class="login-btn" onclick="loginTerminal('sales')">
+                                <i class="fas fa-sign-in-alt"></i> Access Terminal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terminal 2 - System Monitoring -->
+                <div class="terminal-card" id="terminal-system">
+                    <div class="terminal-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="terminal-info">
+                        <h3>System Monitoring Terminal</h3>
+                        <p>Server metrics, performance monitoring, and infrastructure analytics</p>
+                        <div class="terminal-features">
+                            <span><i class="fas fa-chart-bar"></i> Bar Charts</span>
+                            <span><i class="fas fa-gauge"></i> Gauges</span>
+                            <span><i class="fas fa-network-wired"></i> Network</span>
+                        </div>
+                    </div>
+                    <div class="terminal-login">
+                        <div class="login-form">
+                            <h4>Terminal Login</h4>
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="system-user" placeholder="Username" value="sysadmin">
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="system-pass" placeholder="Password" value="sys123">
+                            </div>
+                            <div class="login-error" id="error-system"></div>
+                            <button class="login-btn" onclick="loginTerminal('system')">
+                                <i class="fas fa-sign-in-alt"></i> Access Terminal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terminal 3 - Business Intelligence -->
+                <div class="terminal-card" id="terminal-analytics">
+                    <div class="terminal-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="terminal-info">
+                        <h3>Business Intelligence Terminal</h3>
+                        <p>Data visualization, BI dashboards, and analytical reporting</p>
+                        <div class="terminal-features">
+                            <span><i class="fas fa-chart-pie"></i> Donut Charts</span>
+                            <span><i class="fas fa-chart-line"></i> Line Graphs</span>
+                            <span><i class="fas fa-map"></i> Geomaps</span>
+                        </div>
+                    </div>
+                    <div class="terminal-login">
+                        <div class="login-form">
+                            <h4>Terminal Login</h4>
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="analytics-user" placeholder="Username" value="analytics">
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="analytics-pass" placeholder="Password" value="analytics123">
+                            </div>
+                            <div class="login-error" id="error-analytics"></div>
+                            <button class="login-btn" onclick="loginTerminal('analytics')">
+                                <i class="fas fa-sign-in-alt"></i> Access Terminal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terminal 4 - Financial Terminal -->
+                <!-- <div class="terminal-card" id="terminal-finance">
+                    <div class="terminal-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="terminal-info">
+                        <h3>Financial Terminal</h3>
+                        <p>Financial metrics, revenue analysis, and investment tracking</p>
+                        <div class="terminal-features">
+                            <span><i class="fas fa-chart-pie"></i> Pie Charts</span>
+                            <span><i class="fas fa-chart-line"></i> Line Charts</span>
+                            <span><i class="fas fa-wallet"></i> Budget</span>
+                        </div>
+                    </div>
+                    <div class="terminal-login">
+                        <div class="login-form">
+                            <h4>Terminal Login</h4>
+                            <div class="input-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="finance-user" placeholder="Username" value="finance">
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="finance-pass" placeholder="Password" value="finance123">
+                            </div>
+                            <div class="login-error" id="error-finance"></div>
+                            <button class="login-btn" onclick="loginTerminal('finance')">
+                                <i class="fas fa-sign-in-alt"></i> Access Terminal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Active Sessions Panel -->
+            <div class="sessions-panel">
+                <h3><i class="fas fa-plug"></i> Active Terminal Sessions</h3>
+                <div id="active-sessions">
+                    <div class="empty-sessions">
+                        <i class="fas fa-desktop"></i>
+                        <p>No active terminal sessions</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <p>Multi-Terminal Dashboard System v1.0 | All terminals require separate authentication</p>
+            <div class="footer-info">
+                <span><i class="fas fa-shield-alt"></i> Secure Access</span>
+                <span><i class="fas fa-chart-network"></i> Real-time Analytics</span>
+                <span><i class="fas fa-expand-alt"></i> Multi-page Interface</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
